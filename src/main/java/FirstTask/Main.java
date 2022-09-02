@@ -16,11 +16,12 @@ public class Main {
 
         // Task 1.2 Update
         newUser.setName("Michael");
-        User updatedUser = HttpUtil.sendPut(URI.create(USERS), newUser);
+        User updatedUser = HttpUtil.sendPut(URI.create(USERS), user);
         System.out.println(updatedUser);
 
         // Task 1.3 Delete
-        User deletedUser = HttpUtil.sendDelete(URI.create(USERS), 8);
+        int userID = 8;
+        User deletedUser = HttpUtil.sendDelete(URI.create(USERS), userID);
         System.out.println(deletedUser);
 
         // Task 1.4 Get All Users

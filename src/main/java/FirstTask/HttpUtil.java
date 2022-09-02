@@ -20,13 +20,11 @@ public class HttpUtil {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .header("Content-type", "application/json")
                 .build();
 
         final HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.statusCode());
         return GSON.fromJson(response.body(), User.class);
-
     }
 
     public static User sendPut(URI uri, User user) throws IOException, InterruptedException {
@@ -59,32 +57,32 @@ public class HttpUtil {
                 .build();
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.statusCode());
-        Type type = new TypeToken<List<User>>(){}.getType();
+        Type type = new TypeToken<List<User>>() {
+        }.getType();
         return GSON.fromJson(response.body(), type);
     }
 
     public static User sendGetByUserID(URI uri, int userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri+"/"+userId))
+                .uri(URI.create(uri + "/" + userId))
                 .GET()
                 .build();
 
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.statusCode());
         return GSON.fromJson(response.body(), User.class);
-
     }
 
     public static User sendGetByUsername(URI uri, String username) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri + "?username=" + username))
                 .GET()
-                .header("Content-type", "application/json")
                 .build();
 
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.statusCode());
-        Type type = new TypeToken<List<User>>(){}.getType();
+        Type type = new TypeToken<List<User>>() {
+        }.getType();
         List<User> getUserByUserName = GSON.fromJson(response.body(), type);
         return getUserByUserName.get(0);
     }
